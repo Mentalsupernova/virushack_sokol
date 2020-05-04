@@ -7,6 +7,7 @@
 //! features = ["client", "standard_framework", "voice"]
 //! ```
 use std::{env, sync::Arc};
+use log::{debug, error, info};
 
 use serenity::{
     client::{bridge::voice::ClientVoiceManager, Client, Context, EventHandler},
@@ -53,6 +54,7 @@ impl AudioReceiver for Receiver {
         // SSRCs and map the SSRC to the User ID and maintain a state in
         // `Receiver`. Using this map, you can map the `ssrc` in `voice_packet`
         // to the user ID and handle their audio packets separately.
+        debug!("{} speaking_update!", _user_id);
     }
 
     fn voice_packet(
@@ -64,6 +66,7 @@ impl AudioReceiver for Receiver {
         data: &[i16],
         compressed_size: usize,
     ) {
+        debug!("{} voice_packet", _timestamp);
         println!("Audio packet's first 5 bytes: {:?}", data.get(..5));
         println!(
             "Audio packet sequence {:05} has {:04} bytes (decompressed from {}), SSRC {}",
@@ -77,6 +80,7 @@ impl AudioReceiver for Receiver {
     fn client_connect(&mut self, _ssrc: u32, _user_id: u64) {
         // You can implement your own logic here to handle a user who has joined the
         // voice channel e.g., allocate structures, map their SSRC to User ID.
+        info!("{} clent_connect", _user_id);
     }
 
     fn client_disconnect(&mut self, _user_id: u64) {
@@ -84,6 +88,7 @@ impl AudioReceiver for Receiver {
         // voice channel e.g., finalise processing of statistics etc.
         // You will typically need to map the User ID to their SSRC; observed when
         // speaking or connecting.
+        info!("{} clent_connect", _user_id);
     }
 }
 
@@ -92,6 +97,7 @@ impl AudioReceiver for Receiver {
 struct General;
 
 fn main() {
+    env_logger::init();
     // Configure the client with your Discord bot token in the environment.
     let token = env::var("DISCORD_TOKEN")
         .expect("Expected a token in the environment");
