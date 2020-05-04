@@ -55,6 +55,7 @@ impl AudioReceiver for Receiver {
         // `Receiver`. Using this map, you can map the `ssrc` in `voice_packet`
         // to the user ID and handle their audio packets separately.
         debug!("{} speaking_update!", _user_id);
+        
     }
 
     fn voice_packet(
@@ -99,8 +100,10 @@ struct General;
 fn main() {
     env_logger::init();
     // Configure the client with your Discord bot token in the environment.
-    let token = env::var("DISCORD_TOKEN")
-        .expect("Expected a token in the environment");
+    //let token = env::var("DISCORD_TOKEN")
+      //  .expect("Expected a token in the environment");
+    
+    let token = "NzA2Nzg3MDk4ODUzOTAwMzUw.Xq_VJQ.PRUJSCyN4Nh6nzaYBKdfeNHHrAQ";
     let mut client = Client::new(&token, Handler).expect("Err creating client");
 
     // Obtain a lock to the data owned by the client, and insert the client's

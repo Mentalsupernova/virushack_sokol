@@ -39,12 +39,12 @@ client.on("message", async message => {
            const connection = await message.member.voice.channel.join()
   connection.on('speaking', (user, speaking) => {
     if (speaking) {
-      console.log(`I'm listening to ${user.username}`)
+      console.log(`I'm listening to ${user}`)
       const audio = connection.receiver.createStream(user, {mode: 'pcm'});
       console.log(audio);        
 
     } else {
-      console.log(`I stopped listening to ${user.username}`)
+      console.log(`I stopped listening to ${user}`)
     }
   })
         } else {
