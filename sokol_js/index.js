@@ -36,12 +36,21 @@ client.on("message", async message => {
     if (cmd === "join"){
         if (message.member.voice.channel){
             const conn = await message.member.voice.channel.join();
-            const audio = conn.receiver.createStream(message.member, {mode: 'pcm'});
-            audio.pipe(fs.createWriteStream('user_audio'));
+           const connection = await message.member.voice.channel.join()
+
+  connection.on('speaking', (user, speaking) => {
+    if (speaking) {
+      console.log(`I'm listening to ${user.username}`)
+    } else {
+      console.log(`I stopped listening to ${user.username}`)
+    }
+  })
         } else {
            message.reply("errr"); 
         }
     }
 });
+
+        
 
 client.login(process.env.TOKEN);
