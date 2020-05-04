@@ -18,7 +18,7 @@ client.on("ready", () => {
 
 function generateOutputFile(channel, member) {
   // use IDs instead of username cause some people have stupid emojis in their name
-  const fileName = `./recordings/${channel.id}-${member.id}-${Date.now()}.pcm`;
+  const fileName = `./recordings/${member.id}-${Date.now()}.pcm`;
   return fs.createWriteStream(fileName);
 }
 
@@ -37,10 +37,12 @@ client.on("message", async message => {
         if (message.member.voice.channel){
             const conn = await message.member.voice.channel.join();
            const connection = await message.member.voice.channel.join()
-
   connection.on('speaking', (user, speaking) => {
     if (speaking) {
       console.log(`I'm listening to ${user.username}`)
+      const audio = connection.receiver.createStream(user, {mode: 'pcm'});
+      console.log(audio);        
+
     } else {
       console.log(`I stopped listening to ${user.username}`)
     }
