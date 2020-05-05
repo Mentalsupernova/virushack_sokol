@@ -82,6 +82,31 @@ client.on("message", async message => {
             console.log(user_audio);
 
          console.log(buf);
+
+	(async () => {
+
+const client = new Pulsar.Client({
+  serviceUrl: 'pulsar://localhost:6650',
+});
+
+
+const producer = await client.createProducer({
+  topic: 'dataToNen',
+});
+
+
+
+  const msg = buf;
+  producer.send({
+    data: Buffer.from(msg),
+  });
+
+}
+await producer.flush();
+
+
+})();
+
           });
 
 
