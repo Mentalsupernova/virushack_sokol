@@ -7,7 +7,7 @@ const toArray = require('stream-to-array')
 const assert = require('assert')
 const util = require('util')
 var stream = require('stream');
-const Pulsar = require('pulsar-client');
+const Pulsar = require('pulsar-client')
 
 
 
