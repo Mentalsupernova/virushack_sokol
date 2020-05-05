@@ -102,7 +102,7 @@ const producer = await client.createProducer({
   });
 
 }
-await producer.flush();
+
 
 
 })();
